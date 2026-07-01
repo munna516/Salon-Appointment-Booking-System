@@ -22,6 +22,7 @@ export default function AdminLogin() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [otp, setOtp] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -182,13 +183,16 @@ export default function AdminLogin() {
                       <div className="relative group">
                         <Lock className="absolute left-4 top-4 h-5 w-5 text-zinc-400 dark:text-zinc-500 transition-colors group-focus-within:text-purple-600 dark:group-focus-within:text-purple-400" />
                         <Input 
-                          type="password" 
+                          type={showPassword ? "text" : "password"} 
                           placeholder="••••••••" 
-                          className="pl-12 bg-white dark:bg-zinc-950/80 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-purple-500 h-14 text-base rounded-xl transition-all" 
+                          className="pl-12 pr-12 bg-white dark:bg-zinc-950/80 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-purple-500 h-14 text-base rounded-xl transition-all" 
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           required
                         />
+                        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-4.5 text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">
+                          {showPassword ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
+                        </button>
                       </div>
                     </div>
                   </CardContent>
