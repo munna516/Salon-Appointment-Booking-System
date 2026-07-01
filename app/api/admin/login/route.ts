@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+import { signJwtToken } from "@/lib/jwt";
+import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
   try {
@@ -24,8 +26,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    // In a real app, set a JWT or session cookie here
-    // For now we just return success
+    const token = await signJwtToken({ email: admin.email, id: admin.id });
+
+    (await cookies()).set({
+      name: "admin-token",
+      value: token,
+      httpOnly: true,
+      path: "/",
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 60 * 60 * 24, // 1 day
+    });
+
     return NextResponse.json({ success: true, message: "Logged in successfully" });
   } catch (error) {
     console.error("Login error:", error);

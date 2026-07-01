@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Lock, Mail, ArrowRight, KeyRound, CheckCircle2, Scissors, Eye, EyeOff, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 type FormState = "LOGIN" | "FORGOT_EMAIL" | "FORGOT_OTP" | "FORGOT_NEW_PASS" | "SUCCESS";
 
@@ -127,41 +128,44 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[#0a0a0c] p-6 relative overflow-hidden font-sans text-zinc-100">
-      {/* Background gradients / blurs for premium feel */}
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white via-zinc-50 to-zinc-100 dark:from-zinc-900/40 dark:via-zinc-950 dark:to-zinc-950 relative overflow-hidden">
+      
+      <div className="absolute top-4 right-4 z-50">
+        <ThemeToggle />
+      </div>
+
       <div className="absolute top-[-15%] left-[-10%] w-[600px] h-[600px] bg-purple-600/15 rounded-full blur-[160px] pointer-events-none mix-blend-screen" />
       <div className="absolute bottom-[-15%] right-[-10%] w-[600px] h-[600px] bg-blue-600/15 rounded-full blur-[160px] pointer-events-none mix-blend-screen" />
 
-      <div className="mb-12 flex flex-col items-center z-10">
-        <div className="h-16 w-16 bg-zinc-900/80 rounded-2xl flex items-center justify-center backdrop-blur-md border border-white/10 mb-6 shadow-[0_0_40px_rgba(147,51,234,0.15)] ring-1 ring-white/5">
-          <Scissors className="text-purple-400 w-8 h-8" />
+      <div className="w-full max-w-[480px] z-10 relative flex flex-col items-center">
+        
+        <div className="mb-8 flex flex-col items-center animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <div className="w-16 h-16 bg-white dark:bg-white/5 rounded-2xl border border-zinc-200 dark:border-white/10 flex items-center justify-center mb-4 shadow-xl">
+            <Scissors className="w-8 h-8 text-purple-600 dark:text-purple-400" />
+          </div>
+          <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Salon Admin</h1>
         </div>
-        <h1 className="text-4xl font-bold tracking-tight text-white bg-clip-text text-transparent bg-gradient-to-b from-white to-white/70">
-          Salon Admin
-        </h1>
-      </div>
 
-      <div className="w-full max-w-[480px] z-10 relative">
-        <AnimatePresence mode="wait">
+        <div className="w-full">
+          <AnimatePresence mode="wait">
           {formState === "LOGIN" && (
             <motion.div key="LOGIN" variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>
               <form onSubmit={handleLogin}>
-                <Card className="bg-zinc-900/60 backdrop-blur-2xl border-white/10 shadow-2xl overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
+                <Card className="bg-white/50 dark:bg-zinc-900/50 backdrop-blur-xl border-zinc-200 dark:border-white/10 shadow-2xl overflow-hidden">
                   <CardHeader className="pb-8 pt-8 px-8">
-                    <CardTitle className="text-3xl text-zinc-100 font-semibold tracking-tight">Welcome back</CardTitle>
-                    <CardDescription className="text-zinc-400 text-base mt-2">Enter your credentials to access the dashboard</CardDescription>
-                    {errorMsg && <div className="mt-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-400 text-sm">{errorMsg}</div>}
+                    <CardTitle className="text-3xl text-zinc-900 dark:text-zinc-100 font-semibold tracking-tight">Welcome back</CardTitle>
+                    <CardDescription className="text-zinc-500 dark:text-zinc-400 text-base mt-2">Enter your credentials to access the dashboard</CardDescription>
+                    {errorMsg && <div className="mt-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 dark:text-red-400 text-sm">{errorMsg}</div>}
                   </CardHeader>
                   <CardContent className="space-y-6 px-8">
                     <div className="space-y-3">
-                      <label className="text-base font-medium leading-none text-zinc-300">Email</label>
+                      <label className="text-base font-medium leading-none text-zinc-700 dark:text-zinc-300">Email</label>
                       <div className="relative group">
-                        <Mail className="absolute left-4 top-4 h-5 w-5 text-zinc-500 transition-colors group-focus-within:text-purple-400" />
+                        <Mail className="absolute left-4 top-4 h-5 w-5 text-zinc-400 dark:text-zinc-500 transition-colors group-focus-within:text-purple-600 dark:group-focus-within:text-purple-400" />
                         <Input 
                           type="email" 
                           placeholder="admin@example.com" 
-                          className="pl-12 bg-zinc-950/80 border-white/10 text-zinc-100 placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-purple-500/50 focus-visible:border-purple-500/50 h-14 text-base rounded-xl transition-all shadow-inner" 
+                          className="pl-12 bg-white dark:bg-zinc-950/80 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-purple-500 h-14 text-base rounded-xl transition-all" 
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           required
@@ -170,17 +174,17 @@ export default function AdminLogin() {
                     </div>
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <label className="text-base font-medium leading-none text-zinc-300">Password</label>
-                        <button type="button" onClick={() => setFormState("FORGOT_EMAIL")} className="text-sm text-purple-400 hover:text-purple-300 transition-colors font-medium">
+                        <label className="text-base font-medium leading-none text-zinc-700 dark:text-zinc-300">Password</label>
+                        <button type="button" onClick={() => setFormState("FORGOT_EMAIL")} className="text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors font-medium">
                           Forgot password?
                         </button>
                       </div>
                       <div className="relative group">
-                        <Lock className="absolute left-4 top-4 h-5 w-5 text-zinc-500 transition-colors group-focus-within:text-purple-400" />
+                        <Lock className="absolute left-4 top-4 h-5 w-5 text-zinc-400 dark:text-zinc-500 transition-colors group-focus-within:text-purple-600 dark:group-focus-within:text-purple-400" />
                         <Input 
                           type="password" 
                           placeholder="••••••••" 
-                          className="pl-12 bg-zinc-950/80 border-white/10 text-zinc-100 placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-purple-500/50 focus-visible:border-purple-500/50 h-14 text-base rounded-xl transition-all shadow-inner" 
+                          className="pl-12 bg-white dark:bg-zinc-950/80 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-purple-500 h-14 text-base rounded-xl transition-all" 
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           required
@@ -189,7 +193,7 @@ export default function AdminLogin() {
                     </div>
                   </CardContent>
                   <CardFooter className="bg-transparent border-t-0 pt-4 pb-10 px-8">
-                    <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-500 text-white transition-all shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_30px_rgba(147,51,234,0.5)] h-14 rounded-xl font-medium text-lg" disabled={loading}>
+                    <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700 text-white transition-all h-14 rounded-xl font-medium text-lg" disabled={loading}>
                       {loading ? "Signing in..." : "Sign in"}
                     </Button>
                   </CardFooter>
@@ -200,63 +204,68 @@ export default function AdminLogin() {
 
           {formState === "FORGOT_EMAIL" && (
             <motion.div key="FORGOT_EMAIL" variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>
-              <form onSubmit={handleSendOtp}>
-                <Card className="bg-zinc-900/60 backdrop-blur-2xl border-white/10 shadow-2xl overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
-                  <CardHeader className="pb-8 pt-8 px-8">
-                    <CardTitle className="text-3xl text-zinc-100 font-semibold tracking-tight">Reset Password</CardTitle>
-                    <CardDescription className="text-zinc-400 text-base mt-2">Enter your email address to receive a verification code.</CardDescription>
-                    {errorMsg && <div className="mt-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-400 text-sm">{errorMsg}</div>}
-                  </CardHeader>
-                  <CardContent className="space-y-6 px-8">
-                    <div className="space-y-3">
-                      <label className="text-base font-medium leading-none text-zinc-300">Email Address</label>
-                      <div className="relative group">
-                        <Mail className="absolute left-4 top-4 h-5 w-5 text-zinc-500 transition-colors group-focus-within:text-purple-400" />
+              <Card className="w-full max-w-md bg-white/50 dark:bg-zinc-900/50 border-zinc-200 dark:border-white/10 backdrop-blur-xl shadow-xl">
+                <CardHeader className="space-y-3 pb-6">
+                  <button 
+                    onClick={() => { setErrorMsg(""); setFormState("LOGIN"); }}
+                    className="w-fit text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 mb-2 flex items-center transition-colors"
+                  >
+                    ← Back to login
+                  </button>
+                  <div className="mx-auto bg-purple-100 dark:bg-purple-600/20 p-4 rounded-full border border-purple-200 dark:border-purple-500/30 w-fit">
+                    <KeyRound className="w-8 h-8 text-purple-600 dark:text-purple-400" />
+                  </div>
+                  <CardTitle className="text-3xl font-bold text-center tracking-tight text-zinc-900 dark:text-zinc-100">
+                    Reset Password
+                  </CardTitle>
+                  <CardDescription className="text-center text-lg text-zinc-500 dark:text-zinc-400">
+                    Enter your admin email to receive an OTP
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleSendOtp} className="space-y-5">
+                    {errorMsg && <div className="p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 dark:text-red-400 text-sm">{errorMsg}</div>}
+                    <div className="space-y-2">
+                      <div className="relative">
+                        <Mail className="absolute left-3.5 top-3.5 h-5 w-5 text-zinc-500" />
                         <Input 
                           type="email" 
-                          placeholder="admin@example.com" 
-                          className="pl-12 bg-zinc-950/80 border-white/10 text-zinc-100 placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-purple-500/50 focus-visible:border-purple-500/50 h-14 text-base rounded-xl transition-all shadow-inner"
+                          placeholder="Admin Email" 
+                          className="pl-11 h-12 text-base bg-white dark:bg-zinc-950/50 border-zinc-200 dark:border-white/10 focus-visible:ring-purple-500 text-zinc-900 dark:text-zinc-100"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           required
                         />
                       </div>
                     </div>
-                  </CardContent>
-                  <CardFooter className="flex flex-col gap-4 bg-transparent border-t-0 pt-4 pb-10 px-8">
-                    <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-500 text-white transition-all shadow-[0_0_20px_rgba(147,51,234,0.2)] h-14 rounded-xl font-medium text-lg" disabled={loading}>
+                    <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700 text-white h-12 text-base rounded-xl font-medium" disabled={loading}>
                       {loading ? "Sending..." : "Send Reset Code"} <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
-                    <Button type="button" variant="ghost" className="w-full text-zinc-400 hover:text-zinc-200 h-14 rounded-xl font-medium text-base" onClick={() => setFormState("LOGIN")}>
-                      Back to Login
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </form>
+                  </form>
+                </CardContent>
+              </Card>
             </motion.div>
           )}
 
           {formState === "FORGOT_OTP" && (
             <motion.div key="FORGOT_OTP" variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>
               <form onSubmit={handleVerifyOtp}>
-                <Card className="bg-zinc-900/60 backdrop-blur-2xl border-white/10 shadow-2xl overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
+                <Card className="bg-white/50 dark:bg-zinc-900/50 backdrop-blur-xl border-zinc-200 dark:border-white/10 shadow-2xl overflow-hidden">
                   <CardHeader className="pb-8 pt-8 px-8">
-                    <CardTitle className="text-3xl text-zinc-100 font-semibold tracking-tight">Enter Code</CardTitle>
-                    <CardDescription className="text-zinc-400 text-base mt-2">We've sent a 6-digit code to <span className="text-zinc-200 font-medium">{email || "your email"}</span>.</CardDescription>
-                    {errorMsg && <div className="mt-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-400 text-sm">{errorMsg}</div>}
+                    <CardTitle className="text-3xl text-zinc-900 dark:text-zinc-100 font-semibold tracking-tight">Enter Code</CardTitle>
+                    <CardDescription className="text-zinc-500 dark:text-zinc-400 text-base mt-2">We've sent a 6-digit code to <span className="text-zinc-900 dark:text-zinc-200 font-medium">{email || "your email"}</span>.</CardDescription>
+                    {errorMsg && <div className="mt-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 dark:text-red-400 text-sm">{errorMsg}</div>}
                   </CardHeader>
                   <CardContent className="space-y-6 px-8">
                     <div className="space-y-3">
-                      <label className="text-base font-medium leading-none text-zinc-300">Verification Code</label>
+                      <label className="text-base font-medium leading-none text-zinc-700 dark:text-zinc-300">Verification Code</label>
                       <div className="relative group">
-                        <KeyRound className="absolute left-4 top-4.5 h-5 w-5 text-zinc-500 transition-colors group-focus-within:text-purple-400" />
+                        <KeyRound className="absolute left-4 top-5 h-5 w-5 text-zinc-400 dark:text-zinc-500" />
                         <Input 
                           type="text" 
                           placeholder="000000" 
                           maxLength={6}
-                          className="pl-12 text-center tracking-[0.5em] font-mono font-semibold text-2xl bg-zinc-950/80 border-white/10 text-zinc-100 placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-purple-500/50 focus-visible:border-purple-500/50 h-16 rounded-xl transition-all shadow-inner"
+                          className="pl-12 text-center tracking-[0.5em] font-mono font-semibold text-2xl bg-white dark:bg-zinc-950/80 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-purple-500 h-16 rounded-xl transition-all"
                           value={otp}
                           onChange={(e) => setOtp(e.target.value)}
                           required
@@ -265,10 +274,10 @@ export default function AdminLogin() {
                     </div>
                   </CardContent>
                   <CardFooter className="flex flex-col gap-4 bg-transparent border-t-0 pt-4 pb-10 px-8">
-                    <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-500 text-white transition-all shadow-[0_0_20px_rgba(147,51,234,0.2)] h-14 rounded-xl font-medium text-lg" disabled={loading || otp.length < 6}>
+                    <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700 text-white h-14 rounded-xl font-medium text-lg" disabled={loading || otp.length < 6}>
                       {loading ? "Verifying..." : "Verify Code"}
                     </Button>
-                    <Button type="button" variant="ghost" className="w-full text-zinc-400 hover:text-zinc-200 h-14 rounded-xl font-medium text-base" onClick={() => setFormState("FORGOT_EMAIL")}>
+                    <Button type="button" variant="ghost" className="w-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 h-14 rounded-xl font-medium text-base" onClick={() => setFormState("FORGOT_EMAIL")}>
                       Change Email
                     </Button>
                   </CardFooter>
@@ -280,36 +289,38 @@ export default function AdminLogin() {
           {formState === "FORGOT_NEW_PASS" && (
             <motion.div key="FORGOT_NEW_PASS" variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>
               <form onSubmit={handleResetPassword}>
-                <Card className="bg-zinc-900/60 backdrop-blur-2xl border-white/10 shadow-2xl overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
+                <Card className="bg-white/50 dark:bg-zinc-900/50 backdrop-blur-xl border-zinc-200 dark:border-white/10 shadow-2xl overflow-hidden">
                   <CardHeader className="pb-8 pt-8 px-8">
-                    <CardTitle className="text-3xl text-zinc-100 font-semibold tracking-tight">New Password</CardTitle>
-                    <CardDescription className="text-zinc-400 text-base mt-2">Enter your new password below.</CardDescription>
-                    {errorMsg && <div className="mt-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-400 text-sm">{errorMsg}</div>}
+                    <CardTitle className="text-3xl text-zinc-900 dark:text-zinc-100 font-semibold tracking-tight">New Password</CardTitle>
+                    <CardDescription className="text-zinc-500 dark:text-zinc-400 text-base mt-2">Enter your new password below.</CardDescription>
+                    {errorMsg && <div className="mt-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 dark:text-red-400 text-sm">{errorMsg}</div>}
                   </CardHeader>
                   <CardContent className="space-y-6 px-8">
                     <div className="space-y-3">
-                      <label className="text-base font-medium leading-none text-zinc-300">New Password</label>
+                      <label className="text-base font-medium leading-none text-zinc-700 dark:text-zinc-300">New Password</label>
                       <div className="relative group">
-                        <Lock className="absolute left-4 top-4 h-5 w-5 text-zinc-500 transition-colors group-focus-within:text-purple-400" />
+                        <Lock className="absolute left-4 top-4 h-5 w-5 text-zinc-400 dark:text-zinc-500" />
                         <Input 
-                          type="password" 
+                          type={showPassword ? "text" : "password"}
                           placeholder="••••••••" 
-                          className="pl-12 bg-zinc-950/80 border-white/10 text-zinc-100 placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-purple-500/50 focus-visible:border-purple-500/50 h-14 text-base rounded-xl transition-all shadow-inner"
+                          className="pl-12 pr-11 bg-white dark:bg-zinc-950/80 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-purple-500 h-14 text-base rounded-xl transition-all"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           required
                         />
+                        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-4.5 text-zinc-500">
+                          {showPassword ? <EyeOff className="h-5 w-5"/> : <Eye className="h-5 w-5"/>}
+                        </button>
                       </div>
                     </div>
                     <div className="space-y-3">
-                      <label className="text-base font-medium leading-none text-zinc-300">Confirm Password</label>
+                      <label className="text-base font-medium leading-none text-zinc-700 dark:text-zinc-300">Confirm Password</label>
                       <div className="relative group">
-                        <Lock className="absolute left-4 top-4 h-5 w-5 text-zinc-500 transition-colors group-focus-within:text-purple-400" />
+                        <Lock className="absolute left-4 top-4 h-5 w-5 text-zinc-400 dark:text-zinc-500" />
                         <Input 
                           type="password" 
                           placeholder="••••••••" 
-                          className="pl-12 bg-zinc-950/80 border-white/10 text-zinc-100 placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-purple-500/50 focus-visible:border-purple-500/50 h-14 text-base rounded-xl transition-all shadow-inner"
+                          className="pl-12 bg-white dark:bg-zinc-950/80 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-600 focus-visible:ring-1 focus-visible:ring-purple-500 h-14 text-base rounded-xl transition-all"
                           value={confirmPassword}
                           onChange={(e) => setConfirmPassword(e.target.value)}
                           required
@@ -318,8 +329,8 @@ export default function AdminLogin() {
                     </div>
                   </CardContent>
                   <CardFooter className="bg-transparent border-t-0 pt-4 pb-10 px-8">
-                    <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-500 text-white transition-all shadow-[0_0_20px_rgba(147,51,234,0.2)] h-14 rounded-xl font-medium text-lg" disabled={loading}>
-                      {loading ? "Resetting..." : "Reset Password"}
+                    <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700 text-white h-14 rounded-xl font-medium text-lg" disabled={loading}>
+                      {loading ? "Resetting..." : "Save Password"}
                     </Button>
                   </CardFooter>
                 </Card>
@@ -329,19 +340,20 @@ export default function AdminLogin() {
 
           {formState === "SUCCESS" && (
             <motion.div key="SUCCESS" variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>
-              <Card className="bg-zinc-900/60 backdrop-blur-2xl border-white/10 shadow-2xl overflow-hidden text-center py-10 px-8">
-                <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
-                <CardContent className="flex flex-col items-center justify-center space-y-6 pt-4">
-                  <div className="h-24 w-24 bg-purple-500/20 rounded-full flex items-center justify-center ring-4 ring-purple-500/10">
-                    <CheckCircle2 className="w-12 h-12 text-purple-400" />
+              <Card className="w-full max-w-md bg-white/50 dark:bg-zinc-900/50 border-zinc-200 dark:border-white/10 backdrop-blur-xl shadow-xl text-center py-8">
+                <CardContent className="space-y-6 pt-6">
+                  <div className="mx-auto bg-emerald-100 dark:bg-emerald-500/20 p-4 rounded-full border border-emerald-200 dark:border-emerald-500/30 w-fit">
+                    <CheckCircle2 className="w-12 h-12 text-emerald-600 dark:text-emerald-400" />
                   </div>
-                  <div className="space-y-3">
-                    <h3 className="text-3xl font-semibold text-zinc-100 tracking-tight">Password Reset</h3>
-                    <p className="text-zinc-400 text-base max-w-[300px] mx-auto">Your password has been successfully reset. You can now login with your new credentials.</p>
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Password Reset</h3>
+                    <p className="text-zinc-500 dark:text-zinc-400 text-lg">
+                      Your password has been successfully updated.
+                    </p>
                   </div>
                 </CardContent>
-                <CardFooter className="bg-transparent border-t-0 pt-8 pb-0">
-                  <Button className="w-full bg-zinc-800 hover:bg-zinc-700 text-white h-14 rounded-xl font-medium text-lg border border-white/5" onClick={() => setFormState("LOGIN")}>
+                <CardFooter className="bg-transparent border-t-0 pt-8 pb-0 px-8">
+                  <Button className="w-full bg-zinc-800 hover:bg-zinc-700 text-white h-14 rounded-xl font-medium text-lg border border-zinc-300 dark:border-white/5" onClick={() => setFormState("LOGIN")}>
                     Back to Login
                   </Button>
                 </CardFooter>
@@ -349,11 +361,12 @@ export default function AdminLogin() {
             </motion.div>
           )}
         </AnimatePresence>
+        </div>
+        
+        <p className="mt-12 text-base text-zinc-500 dark:text-zinc-600 font-medium">
+          &copy; {new Date().getFullYear()} Salon System. All rights reserved.
+        </p>
       </div>
-      
-      <p className="mt-20 text-base text-zinc-600 z-10 font-medium">
-        &copy; {new Date().getFullYear()} Salon System. All rights reserved.
-      </p>
     </div>
   );
 }

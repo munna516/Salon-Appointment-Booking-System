@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, Geist_Mono } from "next/font/google";
 import { Toaster } from "react-hot-toast";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -26,34 +27,42 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        {children}
-        <Toaster 
-          position="top-center" 
-          toastOptions={{
-            success: {
-              style: {
-                background: 'rgba(16, 185, 129, 0.2)', // emerald-500/20
-                color: '#34d399', // emerald-400
-                border: '1px solid rgba(16, 185, 129, 0.3)',
+      <body className="min-h-full flex flex-col bg-zinc-50 dark:bg-zinc-950 text-zinc-950 dark:text-zinc-50">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster 
+            position="top-center" 
+            toastOptions={{
+              success: {
+                style: {
+                  background: 'rgba(16, 185, 129, 0.2)', // emerald-500/20
+                  color: '#34d399', // emerald-400
+                  border: '1px solid rgba(16, 185, 129, 0.3)',
+                },
               },
-            },
-            error: {
-              style: {
-                background: 'rgba(239, 68, 68, 0.2)', // red-500/20
-                color: '#f87171', // red-400
-                border: '1px solid rgba(239, 68, 68, 0.3)',
+              error: {
+                style: {
+                  background: 'rgba(239, 68, 68, 0.2)', // red-500/20
+                  color: '#f87171', // red-400
+                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                },
               },
-            },
-            style: {
-              background: '#09090b', // zinc-950
-              color: '#f4f4f5', // zinc-50
-              border: '1px solid rgba(255,255,255,0.1)',
-            }
-          }}
-        />
+              style: {
+                background: 'var(--toast-bg)', 
+                color: 'var(--toast-text)', 
+                border: '1px solid var(--toast-border)',
+              }
+            }}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );
