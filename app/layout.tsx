@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Manrope, Geist_Mono } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
@@ -25,9 +26,35 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Toaster 
+          position="top-center" 
+          toastOptions={{
+            success: {
+              style: {
+                background: 'rgba(16, 185, 129, 0.2)', // emerald-500/20
+                color: '#34d399', // emerald-400
+                border: '1px solid rgba(16, 185, 129, 0.3)',
+              },
+            },
+            error: {
+              style: {
+                background: 'rgba(239, 68, 68, 0.2)', // red-500/20
+                color: '#f87171', // red-400
+                border: '1px solid rgba(239, 68, 68, 0.3)',
+              },
+            },
+            style: {
+              background: '#09090b', // zinc-950
+              color: '#f4f4f5', // zinc-50
+              border: '1px solid rgba(255,255,255,0.1)',
+            }
+          }}
+        />
+      </body>
     </html>
   );
 }
