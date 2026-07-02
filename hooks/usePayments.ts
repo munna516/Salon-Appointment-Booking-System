@@ -92,7 +92,7 @@ export function usePayments() {
   const charts = useMemo(() => {
     // Revenue Chart (Last 6 Months)
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const revenueChart = [];
+    const revenueChart: { name: string; total: number }[] = [];
     const today = new Date();
     today.setHours(0,0,0,0);
 
