@@ -1,5 +1,5 @@
 export type PaymentStatus = "PENDING" | "PAID" | "FAILED" | "REFUNDED";
-export type PaymentMethod = "CASH" | "CREDIT_CARD" | "ONLINE" | "OTHER";
+export type PaymentMethod = "CASH" | "CARD" | "GOOGLE_PAY" | "APPLE_PAY" | "CASH_APP";
 
 // Types corresponding to Prisma models (extended for UI needs)
 export interface Contact {

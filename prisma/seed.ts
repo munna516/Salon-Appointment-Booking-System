@@ -101,11 +101,12 @@ async function main() {
       contactId: contact1.id,
       payment: {
         create: {
-          amount: 150.0,
+          amount: 85.0,
           currency: "USD",
           status: PaymentStatus.PAID,
-          method: PaymentMethod.CREDIT_CARD,
-          transactionId: "txn_123456",
+          method: PaymentMethod.CARD,
+          transactionId: "txn_1234567890",
+          stripePaymentIntentId: "pi_1234567890",
         }
       }
     }

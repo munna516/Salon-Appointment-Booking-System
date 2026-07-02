@@ -38,6 +38,8 @@ export async function POST(req: Request) {
         if (bookingId) {
           // Extract specific payment method details
           let paymentMethodType = "Unknown";
+          let methodEnum = PaymentMethod.CARD;
+
           try {
             if (paymentIntent.latest_charge) {
               const expandedIntent = await stripe.paymentIntents.retrieve(paymentIntent.id, {
@@ -46,7 +48,20 @@ export async function POST(req: Request) {
               const details = (expandedIntent.latest_charge as Stripe.Charge)?.payment_method_details;
               if (details) {
                 if (details.type === 'card') {
-                  paymentMethodType = details.card?.wallet?.type || 'card';
+                  const walletType = details.card?.wallet?.type;
+                  if (walletType === 'apple_pay') {
+                     methodEnum = PaymentMethod.APPLE_PAY;
+                     paymentMethodType = "apple_pay";
+                  } else if (walletType === 'google_pay') {
+                     methodEnum = PaymentMethod.GOOGLE_PAY;
+                     paymentMethodType = "google_pay";
+                  } else {
+                     methodEnum = PaymentMethod.CARD;
+                     paymentMethodType = "card";
+                  }
+                } else if (details.type === 'cashapp') {
+                  methodEnum = PaymentMethod.CASH_APP;
+                  paymentMethodType = "cashapp";
                 } else {
                   paymentMethodType = details.type;
                 }
@@ -62,7 +77,8 @@ export async function POST(req: Request) {
             data: { 
               status: PaymentStatus.PAID,
               transactionId: paymentIntent.id,
-              paymentDetails: paymentMethodType
+              paymentDetails: paymentMethodType,
+              method: methodEnum
             },
             include: {
               booking: {

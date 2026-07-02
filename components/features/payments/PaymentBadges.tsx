@@ -35,17 +35,19 @@ interface PaymentMethodBadgeProps {
 
 export function PaymentMethodBadge({ method, details }: PaymentMethodBadgeProps) {
   const iconMap = {
-    CREDIT_CARD: <CreditCard className="h-3.5 w-3.5 mr-1" />,
-    ONLINE: <Smartphone className="h-3.5 w-3.5 mr-1" />,
+    CARD: <CreditCard className="h-3.5 w-3.5 mr-1" />,
     CASH: <Banknote className="h-3.5 w-3.5 mr-1" />,
-    OTHER: <Wallet className="h-3.5 w-3.5 mr-1" />,
+    GOOGLE_PAY: <Smartphone className="h-3.5 w-3.5 mr-1" />,
+    APPLE_PAY: <Smartphone className="h-3.5 w-3.5 mr-1" />,
+    CASH_APP: <Smartphone className="h-3.5 w-3.5 mr-1" />,
   };
 
   const labels = {
-    CREDIT_CARD: "Credit Card",
-    ONLINE: "Online",
+    CARD: "Card",
     CASH: "Cash",
-    OTHER: "Other",
+    GOOGLE_PAY: "Google Pay",
+    APPLE_PAY: "Apple Pay",
+    CASH_APP: "Cash App",
   };
 
   const formatDetails = (detailString?: string | null) => {

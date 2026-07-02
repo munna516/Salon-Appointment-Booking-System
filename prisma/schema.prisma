@@ -38,9 +38,10 @@ enum PaymentStatus {
 
 enum PaymentMethod {
   CASH
-  CREDIT_CARD
-  ONLINE
-  OTHER
+  CARD
+  GOOGLE_PAY
+  APPLE_PAY
+  CASH_APP
 }
 
 enum DayOfWeek {

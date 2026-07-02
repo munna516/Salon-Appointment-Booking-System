@@ -7,16 +7,17 @@ export const PAYMENT_STATUSES = [
 ];
 
 export const PAYMENT_METHODS = [
-  { label: "Card", value: "ONLINE" },
+  { label: "Card", value: "CARD" },
   { label: "Cash", value: "CASH" },
-  { label: "Credit Card", value: "CREDIT_CARD" },
-  { label: "Other", value: "OTHER" },
+  { label: "Google Pay", value: "GOOGLE_PAY" },
+  { label: "Apple Pay", value: "APPLE_PAY" },
+  { label: "Cash App", value: "CASH_APP" },
 ];
 
 // Generate robust mock data
 const generateMockPayments = (): Payment[] => {
   const statuses: ("PAID" | "PENDING" | "FAILED" | "REFUNDED")[] = ["PAID", "PAID", "PAID", "PENDING", "FAILED", "REFUNDED"];
-  const methods: ("ONLINE" | "CASH" | "CREDIT_CARD" | "OTHER")[] = ["ONLINE", "ONLINE", "CREDIT_CARD", "CASH", "OTHER"];
+  const methods: PaymentMethod[] = ["CASH", "CARD", "GOOGLE_PAY", "APPLE_PAY", "CASH_APP"];
   
   const services = ["Men's Haircut", "Beard Trim", "Women's Haircut", "Hair Coloring", "Facial Treatment"];
   const customers = [

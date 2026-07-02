@@ -57,7 +57,7 @@ export async function POST(req: Request) {
             amount: price,
             currency: "USD",
             status: PaymentStatus.PENDING,
-            method: PaymentMethod.ONLINE,
+            method: PaymentMethod.CARD,
           }
         }
       },

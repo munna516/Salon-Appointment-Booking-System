@@ -104,10 +104,11 @@ export function usePayments() {
     
     // Payment Method Chart
     const methodCounts = {
-      CREDIT_CARD: 0,
-      ONLINE: 0,
+      CARD: 0,
       CASH: 0,
-      OTHER: 0
+      GOOGLE_PAY: 0,
+      APPLE_PAY: 0,
+      CASH_APP: 0
     };
 
     data.forEach(payment => {
@@ -128,17 +129,19 @@ export function usePayments() {
     });
 
     const methodColors = {
-      CREDIT_CARD: "#0ea5e9", // Sky 500
-      ONLINE: "#10b981",    // Emerald 500
-      CASH: "#f59e0b",      // Amber 500
-      OTHER: "#8b5cf6"      // Violet 500
+      CARD: "#0ea5e9", // Sky 500
+      CASH: "#10b981", // Emerald 500
+      GOOGLE_PAY: "#f59e0b", // Amber 500
+      APPLE_PAY: "#000000", // Black
+      CASH_APP: "#22c55e" // Green 500
     };
 
     const methodLabels = {
-      CREDIT_CARD: "Credit Card",
-      ONLINE: "Online",
+      CARD: "Card",
       CASH: "Cash",
-      OTHER: "Other"
+      GOOGLE_PAY: "Google Pay",
+      APPLE_PAY: "Apple Pay",
+      CASH_APP: "Cash App"
     };
 
     const paymentMethodChart = Object.entries(methodCounts)
