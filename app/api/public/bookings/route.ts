@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { BookingStatus, PaymentStatus, PaymentMethod } from "@prisma/client";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_dummy", {
   apiVersion: "2026-06-24.dahlia", // Use latest API version or your preferred one
 });
 

@@ -4,7 +4,7 @@ import { BookingStatus, PaymentStatus, PaymentMethod } from "@prisma/client";
 import { sendBookingConfirmationEmail } from "@/lib/email-service";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_dummy", {
   apiVersion: "2026-06-24.dahlia",
 });
 
