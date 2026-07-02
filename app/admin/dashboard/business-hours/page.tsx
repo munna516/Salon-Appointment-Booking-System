@@ -23,6 +23,7 @@ export default function BusinessHoursPage() {
     addBlockedDate,
     updateBlockedDate,
     deleteBlockedDate,
+    loading
   } = useBusinessHours();
 
   // Modal State
@@ -69,54 +70,53 @@ export default function BusinessHoursPage() {
     setIsModalOpen(false);
   };
 
-  const handleSaveChanges = () => {
-    // In a real app, this would send weeklyHours to the API
-    toast("Business hours saved successfully!");
-  };
-
   // Derived stats
   const daysOpen = weeklyHours.filter(h => h.isOpen).length;
   const daysClosed = 7 - daysOpen;
   const specialClosedDatesCount = blockedDates.length;
 
   return (
-    <div className="flex-1 space-y-8 p-4 md:p-8 pt-6 w-full">
+    <div className="flex-1 space-y-8 md:p-2 pt-6 w-full">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">Business Hours</h2>
           <p className="text-zinc-500 dark:text-zinc-400 mt-1 text-sm">
-            Manage your weekly opening hours and special closed dates.
+            Manage your weekly opening hours and special closed dates. Changes are saved automatically.
           </p>
         </div>
-        <Button onClick={handleSaveChanges} className="w-full sm:w-auto">
-          <Save className="mr-2 h-4 w-4" />
-          Save Changes
-        </Button>
       </div>
 
-      <BusinessHourStats 
-        daysOpen={daysOpen}
-        daysClosed={daysClosed}
-        specialClosedDates={specialClosedDatesCount}
-      />
+      {loading ? (
+        <div className="flex justify-center items-center py-20">
+          <div className="animate-spin h-8 w-8 border-4 border-purple-500 border-t-transparent rounded-full" />
+        </div>
+      ) : (
+        <>
+          <BusinessHourStats
+            daysOpen={daysOpen}
+            daysClosed={daysClosed}
+            specialClosedDates={specialClosedDatesCount}
+          />
 
-      <div className="space-y-12">
-        <WeeklySchedule
-          weeklyHours={weeklyHours}
-          onUpdateDay={updateDaySchedule}
-          onApplyMondayToAll={applyMondayToAll}
-          onReset={resetSchedule}
-        />
+          <div className="space-y-12">
+            <WeeklySchedule
+              weeklyHours={weeklyHours}
+              onUpdateDay={updateDaySchedule}
+              onApplyMondayToAll={applyMondayToAll}
+              onReset={resetSchedule}
+            />
 
-        <div className="h-px bg-zinc-200 dark:bg-zinc-800 w-full" />
+            <div className="h-px bg-zinc-200 dark:bg-zinc-800 w-full" />
 
-        <ClosedDateTable
-          data={blockedDates}
-          onAdd={handleAddDate}
-          onEdit={handleEditDate}
-          onDelete={handleDeleteRequest}
-        />
-      </div>
+            <ClosedDateTable
+              data={blockedDates}
+              onAdd={handleAddDate}
+              onEdit={handleEditDate}
+              onDelete={handleDeleteRequest}
+            />
+          </div>
+        </>
+      )}
 
       <ClosedDateModal
         isOpen={isModalOpen}

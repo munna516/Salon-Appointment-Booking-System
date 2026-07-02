@@ -29,12 +29,12 @@ export function WeeklySchedule({
           <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Weekly Business Hours</h3>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">Set your standard opening and closing times for each day.</p>
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={onApplyMondayToAll} className="bg-white dark:bg-zinc-950">
+        <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
+          <Button variant="outline" size="sm" onClick={onApplyMondayToAll} className="bg-white dark:bg-zinc-950 w-full sm:w-auto">
             <Copy className="h-4 w-4 mr-2 text-zinc-500" />
             Apply Monday to All
           </Button>
-          <Button variant="ghost" size="sm" onClick={onReset} className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100">
+          <Button variant="ghost" size="sm" onClick={onReset} className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 w-full sm:w-auto">
             <RefreshCcw className="h-4 w-4 mr-2" />
             Reset
           </Button>

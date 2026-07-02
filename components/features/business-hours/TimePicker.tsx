@@ -16,7 +16,7 @@ export function TimePicker({ value, onChange, disabled, className }: TimePickerP
       onChange={(e) => onChange(e.target.value || null)}
       disabled={disabled}
       className={cn(
-        "w-[150px] bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800",
+        "w-full sm:w-[150px] bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800",
         disabled && "opacity-50 cursor-not-allowed",
         className
       )}

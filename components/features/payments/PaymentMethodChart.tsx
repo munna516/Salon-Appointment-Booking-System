@@ -2,14 +2,11 @@
 
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
 
-const data = [
-  { name: "Credit Card", value: 65, color: "#0ea5e9" }, // Sky 500
-  { name: "Apple Pay", value: 20, color: "#10b981" }, // Emerald 500
-  { name: "Google Pay", value: 10, color: "#f59e0b" }, // Amber 500
-  { name: "Cash App", value: 5, color: "#8b5cf6" }, // Violet 500
-];
+interface PaymentMethodChartProps {
+  data: { name: string; value: number; color: string }[];
+}
 
-export function PaymentMethodChart() {
+export function PaymentMethodChart({ data }: PaymentMethodChartProps) {
   return (
     <div className="flex flex-col p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-sm w-full h-[400px]">
       <div className="flex flex-col mb-2">

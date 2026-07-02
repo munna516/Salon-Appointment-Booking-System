@@ -44,7 +44,8 @@ export function ClosedDateTable({ data, onAdd, onEdit, onDelete }: ClosedDateTab
         </Button>
       </div>
 
-      <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden">
+      {/* Desktop Table */}
+      <div className="hidden md:block rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow className="bg-zinc-50/50 dark:bg-zinc-900/50 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/50">
@@ -103,6 +104,54 @@ export function ClosedDateTable({ data, onAdd, onEdit, onDelete }: ClosedDateTab
             })}
           </TableBody>
         </Table>
+      </div>
+
+      {/* Mobile Cards */}
+      <div className="grid grid-cols-1 gap-4 md:hidden">
+        {data.map((item) => {
+          const status = getStatus(item.date);
+          return (
+            <div key={item.id} className="flex flex-col p-4 gap-3 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm">
+              <div className="flex items-center justify-between">
+                <span className="font-semibold text-zinc-900 dark:text-zinc-100">
+                  {format(new Date(item.date), "MMM d, yyyy")}
+                </span>
+                {status === "Upcoming" ? (
+                  <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20">
+                    Upcoming
+                  </Badge>
+                ) : (
+                  <Badge variant="outline" className="bg-zinc-50 text-zinc-700 border-zinc-200 dark:bg-zinc-500/10 dark:text-zinc-400 dark:border-zinc-500/20">
+                    Past
+                  </Badge>
+                )}
+              </div>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                {item.reason}
+              </p>
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-zinc-100 dark:border-zinc-800">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => onEdit(item)}
+                  className="bg-white dark:bg-zinc-950 text-blue-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-500/10"
+                >
+                  <Edit2 className="h-4 w-4 mr-2" />
+                  Edit
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => onDelete(item.id)}
+                  className="bg-white dark:bg-zinc-950 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10"
+                >
+                  <Trash2 className="h-4 w-4 mr-2" />
+                  Delete
+                </Button>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

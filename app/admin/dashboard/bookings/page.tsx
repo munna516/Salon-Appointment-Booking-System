@@ -15,7 +15,9 @@ import { MOCK_BOOKINGS } from "@/constants/booking";
 
 export default function BookingsPage() {
   const {
+    allData,
     data,
+    loading,
     totalItems,
     searchQuery,
     setSearchQuery,
@@ -64,7 +66,7 @@ export default function BookingsPage() {
       </div>
 
       {/* Stats Cards */}
-      <BookingStats bookings={MOCK_BOOKINGS} />
+      <BookingStats bookings={allData} />
 
       {/* Main Content Area */}
       <div className="space-y-4">
@@ -84,6 +86,7 @@ export default function BookingsPage() {
         {/* Data Table */}
         <BookingTable
           data={data}
+          loading={loading}
           onView={handleView}
           onUpdateStatus={updateBookingStatus}
           onDelete={deleteBooking}

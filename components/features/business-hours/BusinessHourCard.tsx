@@ -13,7 +13,7 @@ export function BusinessHourCard({ day, onUpdate }: BusinessHourCardProps) {
 
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm gap-4">
-      <div className="flex items-center gap-4 w-full sm:w-[150px]">
+      <div className="flex items-center gap-4 w-full sm:w-auto">
         <Switch
           checked={day.isOpen}
           onCheckedChange={(checked) => onUpdate({ isOpen: checked })}
@@ -28,9 +28,9 @@ export function BusinessHourCard({ day, onUpdate }: BusinessHourCardProps) {
         </span>
       </div>
 
-      <div className="flex items-center gap-2 sm:gap-4 ml-14 sm:ml-0">
-        <div className="flex flex-col gap-1">
-          <span className="text-xs text-zinc-500 dark:text-zinc-400 sm:hidden">Opening</span>
+      <div className="grid grid-cols-[1fr_auto_1fr] sm:flex items-center gap-2 sm:gap-4 w-full sm:w-auto mt-2 sm:mt-0">
+        <div className="flex flex-col gap-1 w-full">
+          <span className="text-[11px] text-zinc-500 dark:text-zinc-400 sm:hidden">Opening</span>
           <TimePicker
             value={day.openTime}
             onChange={(val) => onUpdate({ openTime: val })}
@@ -40,8 +40,8 @@ export function BusinessHourCard({ day, onUpdate }: BusinessHourCardProps) {
         
         <span className="text-zinc-400 self-end mb-2 sm:self-center sm:mb-0">-</span>
         
-        <div className="flex flex-col gap-1">
-          <span className="text-xs text-zinc-500 dark:text-zinc-400 sm:hidden">Closing</span>
+        <div className="flex flex-col gap-1 w-full">
+          <span className="text-[11px] text-zinc-500 dark:text-zinc-400 sm:hidden">Closing</span>
           <TimePicker
             value={day.closeTime}
             onChange={(val) => onUpdate({ closeTime: val })}

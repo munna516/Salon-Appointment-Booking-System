@@ -55,18 +55,10 @@ export function PaymentStats({ stats }: PaymentStatsProps) {
       color: "text-red-600",
       bg: "bg-red-50 dark:bg-red-500/10",
     },
-    {
-      title: "Refunded",
-      value: stats.refundedCount.toString(),
-      description: "Returned to customer",
-      icon: Undo2,
-      color: "text-zinc-600 dark:text-zinc-400",
-      bg: "bg-zinc-100 dark:bg-zinc-800",
-    },
   ];
 
   return (
-    <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+    <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
       {cards.map((card, index) => {
         const Icon = card.icon;
         return (

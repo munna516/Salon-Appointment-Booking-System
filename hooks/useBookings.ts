@@ -1,9 +1,10 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Booking } from "@/types/booking";
-import { MOCK_BOOKINGS } from "@/constants/booking";
+import toast from "react-hot-toast";
 
 export function useBookings() {
-  const [data, setData] = useState<Booking[]>(MOCK_BOOKINGS);
+  const [data, setData] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [paymentStatusFilter, setPaymentStatusFilter] = useState("Payment Statuses");
   const [bookingStatusFilter, setBookingStatusFilter] = useState("Booking Statuses");
@@ -12,6 +13,23 @@ export function useBookings() {
   // Pagination
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(10);
+
+  useEffect(() => {
+    async function fetchBookings() {
+      try {
+        const res = await fetch("/api/admin/bookings");
+        if (res.ok) {
+          const json = await res.json();
+          setData(json.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch bookings", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchBookings();
+  }, []);
 
   const filteredAndSortedData = useMemo(() => {
     let result = [...data];
@@ -26,8 +44,6 @@ export function useBookings() {
           booking.id.toLowerCase().includes(lowerQuery)
       );
     }
-
-
 
     // Payment status filter
     if (paymentStatusFilter !== "Payment Statuses") {
@@ -65,18 +81,41 @@ export function useBookings() {
 
   const totalPages = Math.ceil(filteredAndSortedData.length / pageSize);
 
-  const updateBookingStatus = (id: string, newStatus: Booking["bookingStatus"]) => {
-    setData((prev) =>
-      prev.map((b) => (b.id === id ? { ...b, bookingStatus: newStatus } : b))
-    );
+  const updateBookingStatus = async (id: string, newStatus: Booking["bookingStatus"]) => {
+    try {
+      const dbStatus = newStatus.toUpperCase().replace(" ", "_");
+      const res = await fetch(`/api/admin/bookings/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: dbStatus }),
+      });
+      if (!res.ok) throw new Error("Failed to update status");
+      
+      setData((prev) =>
+        prev.map((b) => (b.id === id ? { ...b, bookingStatus: newStatus } : b))
+      );
+      toast.success("Booking status updated");
+    } catch (err) {
+      toast.error("Failed to update status");
+    }
   };
 
-  const deleteBooking = (id: string) => {
-    setData((prev) => prev.filter((b) => b.id !== id));
+  const deleteBooking = async (id: string) => {
+    try {
+      const res = await fetch(`/api/admin/bookings/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to delete");
+      
+      setData((prev) => prev.filter((b) => b.id !== id));
+      toast.success("Booking deleted successfully");
+    } catch (err) {
+      toast.error("Failed to delete booking");
+    }
   };
 
   return {
+    allData: data,
     data: paginatedData,
+    loading,
     totalItems: filteredAndSortedData.length,
     searchQuery,
     setSearchQuery,

@@ -22,12 +22,13 @@ import { format, parseISO } from "date-fns";
 
 interface BookingTableProps {
   data: Booking[];
+  loading?: boolean;
   onView: (booking: Booking) => void;
   onUpdateStatus: (id: string, status: Booking["bookingStatus"]) => void;
   onDelete: (id: string) => void;
 }
 
-export function BookingTable({ data, onView, onUpdateStatus, onDelete }: BookingTableProps) {
+export function BookingTable({ data, loading = false, onView, onUpdateStatus, onDelete }: BookingTableProps) {
   const columns: ColumnDef<Booking>[] = [
     {
       accessorKey: "id",
@@ -109,7 +110,11 @@ export function BookingTable({ data, onView, onUpdateStatus, onDelete }: Booking
     <>
       {/* Mobile Card View */}
       <div className="md:hidden space-y-4">
-        {data.length > 0 ? (
+        {loading ? (
+          <div className="flex justify-center items-center py-12">
+            <div className="animate-spin h-8 w-8 border-4 border-purple-500 border-t-transparent rounded-full" />
+          </div>
+        ) : data.length > 0 ? (
           data.map((booking) => (
             <div
               key={booking.id}
@@ -185,7 +190,15 @@ export function BookingTable({ data, onView, onUpdateStatus, onDelete }: Booking
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-64 text-center">
+                  <div className="flex justify-center items-center">
+                    <div className="animate-spin h-8 w-8 border-4 border-purple-500 border-t-transparent rounded-full" />
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}

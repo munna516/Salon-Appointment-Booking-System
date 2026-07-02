@@ -43,16 +43,16 @@ export default function RootLayout({
             toastOptions={{
               success: {
                 style: {
-                  background: 'rgba(16, 185, 129, 0.2)', // emerald-500/20
-                  color: '#ffffff', // white
-                  border: '1px solid rgba(16, 185, 129, 0.3)',
+                  background: '#dcfce7', // light green (green-100)
+                  color: '#000000', // black text
+                  border: '1px solid #bbf7d0', // green-200
                 },
               },
               error: {
                 style: {
-                  background: 'rgba(239, 68, 68, 0.2)', // red-500/20
-                  color: '#ffffff', // white
-                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                  background: '#fee2e2', // light red (red-100)
+                  color: '#000000', // black text
+                  border: '1px solid #fecaca', // red-200
                 },
               },
               style: {

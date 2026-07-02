@@ -4,7 +4,6 @@ export const PAYMENT_STATUSES = [
   { label: "Paid", value: "PAID" },
   { label: "Pending", value: "PENDING" },
   { label: "Failed", value: "FAILED" },
-  { label: "Refunded", value: "REFUNDED" },
 ];
 
 export const PAYMENT_METHODS = [

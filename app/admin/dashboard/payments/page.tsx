@@ -16,7 +16,9 @@ import { motion, Variants } from "framer-motion";
 export default function PaymentsPage() {
   const {
     data,
+    loading,
     stats,
+    charts,
     searchQuery,
     setSearchQuery,
     statusFilter,
@@ -68,30 +70,38 @@ export default function PaymentsPage() {
         </Button>
       </motion.div>
 
-      <motion.div variants={itemVariants}>
-        <PaymentStats stats={stats} />
-      </motion.div>
-
-      <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-2">
-          <RevenueChart />
+      {loading ? (
+        <div className="flex justify-center items-center py-20">
+          <div className="animate-spin h-8 w-8 border-4 border-purple-500 border-t-transparent rounded-full" />
         </div>
-        <div className="lg:col-span-1">
-          <PaymentMethodChart />
-        </div>
-      </motion.div>
+      ) : (
+        <>
+          <motion.div variants={itemVariants}>
+            <PaymentStats stats={stats} />
+          </motion.div>
 
-      <motion.div variants={itemVariants} className="flex flex-col gap-2">
-        <PaymentFilters
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          statusFilter={statusFilter}
-          setStatusFilter={setStatusFilter}
-          methodFilter={methodFilter}
-          setMethodFilter={setMethodFilter}
-        />
-        <PaymentsTable data={data} onView={handleViewPayment} />
-      </motion.div>
+          <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="lg:col-span-2">
+              <RevenueChart data={charts.revenueChart} />
+            </div>
+            <div className="lg:col-span-1">
+              <PaymentMethodChart data={charts.paymentMethodChart} />
+            </div>
+          </motion.div>
+
+          <motion.div variants={itemVariants} className="flex flex-col gap-2">
+            <PaymentFilters
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              statusFilter={statusFilter}
+              setStatusFilter={setStatusFilter}
+              methodFilter={methodFilter}
+              setMethodFilter={setMethodFilter}
+            />
+            <PaymentsTable data={data} onView={handleViewPayment} />
+          </motion.div>
+        </>
+      )}
 
       <PaymentModal
         payment={selectedPayment}

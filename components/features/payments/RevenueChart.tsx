@@ -10,9 +10,11 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { MOCK_REVENUE_DATA } from "@/constants/payment";
+interface RevenueChartProps {
+  data: { name: string; total: number }[];
+}
 
-export function RevenueChart() {
+export function RevenueChart({ data }: RevenueChartProps) {
   return (
     <div className="flex flex-col p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-sm w-full h-[400px]">
       <div className="flex flex-col mb-6">
@@ -22,7 +24,7 @@ export function RevenueChart() {
       
       <div className="flex-1 w-full min-h-0">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={MOCK_REVENUE_DATA} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+          <LineChart data={data} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#3f3f46" opacity={0.2} />
             <XAxis 
               dataKey="name" 

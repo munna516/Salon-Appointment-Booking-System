@@ -2,17 +2,15 @@
 
 import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
-const data = [
-  { name: "Mon", bookings: Math.floor(Math.random() * 50) + 10 },
-  { name: "Tue", bookings: Math.floor(Math.random() * 50) + 10 },
-  { name: "Wed", bookings: Math.floor(Math.random() * 50) + 10 },
-  { name: "Thu", bookings: Math.floor(Math.random() * 50) + 10 },
-  { name: "Fri", bookings: Math.floor(Math.random() * 50) + 10 },
-  { name: "Sat", bookings: Math.floor(Math.random() * 50) + 10 },
-  { name: "Sun", bookings: Math.floor(Math.random() * 50) + 10 },
-];
+interface BookingsChartProps {
+  data?: { name: string; bookings: number }[];
+}
 
-export function BookingsChart() {
+export function BookingsChart({ data = [] }: BookingsChartProps) {
+  if (!data || data.length === 0) {
+    return <div className="flex items-center justify-center h-full text-zinc-500">No data available</div>;
+  }
+
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={data} barSize={40}>
