@@ -1,4 +1,4 @@
-import { Payment } from "@/types/payment";
+import { Payment, PaymentMethod } from "@/types/payment";
 
 export const PAYMENT_STATUSES = [
   { label: "Paid", value: "PAID" },
