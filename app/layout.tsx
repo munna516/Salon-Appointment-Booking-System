@@ -44,14 +44,14 @@ export default function RootLayout({
               success: {
                 style: {
                   background: 'rgba(16, 185, 129, 0.2)', // emerald-500/20
-                  color: '#34d399', // emerald-400
+                  color: '#ffffff', // white
                   border: '1px solid rgba(16, 185, 129, 0.3)',
                 },
               },
               error: {
                 style: {
                   background: 'rgba(239, 68, 68, 0.2)', // red-500/20
-                  color: '#f87171', // red-400
+                  color: '#ffffff', // white
                   border: '1px solid rgba(239, 68, 68, 0.3)',
                 },
               },

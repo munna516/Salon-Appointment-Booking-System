@@ -57,21 +57,7 @@ enum DayOfWeek {
 // MODELS
 // -----------------------------------------------------------------------------
 
-model Service {
-  id          String    @id @default(uuid())
-  name        String
-  description String?
-  duration    Int       // Duration in minutes
-  price       Float     // Price of the service
-  isActive    Boolean   @default(true)
-  
-  bookings    Booking[]
 
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  @@index([isActive])
-}
 
 model Contact {
   id        String    @id @default(uuid())
@@ -100,8 +86,7 @@ model Booking {
   customerNotes String?
   internalNotes String?
   
-  serviceId     String
-  service       Service       @relation(fields: [serviceId], references: [id])
+  serviceName   String
   
   contactId     String
   contact       Contact       @relation(fields: [contactId], references: [id])
@@ -113,16 +98,17 @@ model Booking {
 
   @@index([date])
   @@index([status])
-  @@index([serviceId])
   @@index([contactId])
 }
 
 model Payment {
-  id            String        @id @default(uuid())
-  amount        Float
-  status        PaymentStatus @default(PENDING)
-  method        PaymentMethod
-  transactionId String?       @unique
+  id                    String        @id @default(uuid())
+  amount                Float
+  currency              String        @default("USD")
+  status                PaymentStatus @default(PENDING)
+  method                PaymentMethod
+  transactionId         String?       @unique
+  stripePaymentIntentId String?       @unique
   
   bookingId     String        @unique
   booking       Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
@@ -132,9 +118,10 @@ model Payment {
 
   @@index([status])
   @@index([transactionId])
+  @@index([stripePaymentIntentId])
 }
 
-model BusinessHours {
+model BusinessHour {
   id        String    @id @default(uuid())
   dayOfWeek DayOfWeek @unique
   isOpen    Boolean   @default(true)
@@ -143,15 +130,19 @@ model BusinessHours {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+
+  @@index([dayOfWeek])
 }
 
-model BlockedDates {
+model BlockedDate {
   id        String    @id @default(uuid())
   date      DateTime  @unique
   reason    String?
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+
+  @@index([date])
 }
 
 model Settings {

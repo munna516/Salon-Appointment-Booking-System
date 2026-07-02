@@ -37,11 +37,8 @@ import { ThemeToggle } from "@/components/theme-toggle";
 const sidebarLinks = [
   { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
   { name: "Bookings", href: "/admin/dashboard/bookings", icon: Calendar },
-  { name: "Services", href: "/admin/dashboard/services", icon: Scissors },
   { name: "Business Hours", href: "/admin/dashboard/business-hours", icon: Clock },
-  { name: "Blocked Dates", href: "/admin/dashboard/blocked-dates", icon: CalendarOff },
   { name: "Payments", href: "/admin/dashboard/payments", icon: CreditCard },
-  { name: "Contact Messages", href: "/admin/dashboard/contact-messages", icon: MessageSquare },
   { name: "Settings", href: "/admin/dashboard/settings", icon: Settings },
 ];
 
