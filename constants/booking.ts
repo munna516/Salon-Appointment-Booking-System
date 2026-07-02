@@ -1,0 +1,153 @@
+import { Booking } from "@/types/booking";
+
+export const MOCK_BOOKINGS: Booking[] = [
+  {
+    id: "BKG-1001",
+    customerId: "CUST-001",
+    customer: {
+      id: "CUST-001",
+      name: "Emma Thompson",
+      email: "emma@example.com",
+      phone: "+1 555-0100",
+    },
+    serviceId: "SRV-01",
+    service: {
+      id: "SRV-01",
+      name: "Signature Haircut",
+      duration: 60,
+      price: 85,
+    },
+    date: "2026-07-02",
+    time: "10:00",
+    price: 85,
+    paymentStatus: "Paid",
+    bookingStatus: "Confirmed",
+    paymentMethod: "Credit Card",
+    transactionId: "TXN-789012",
+    customerNotes: "Please use sulfate-free products.",
+    createdAt: "2026-06-25T14:30:00Z",
+  },
+  {
+    id: "BKG-1002",
+    customerId: "CUST-002",
+    customer: {
+      id: "CUST-002",
+      name: "Michael Chen",
+      email: "michael@example.com",
+      phone: "+1 555-0101",
+    },
+    serviceId: "SRV-02",
+    service: {
+      id: "SRV-02",
+      name: "Beard Trim & Shape",
+      duration: 30,
+      price: 35,
+    },
+    date: "2026-07-02",
+    time: "11:30",
+    price: 35,
+    paymentStatus: "Pending",
+    bookingStatus: "Pending",
+    paymentMethod: "Cash on Arrival",
+    createdAt: "2026-07-01T09:15:00Z",
+  },
+  {
+    id: "BKG-1003",
+    customerId: "CUST-003",
+    customer: {
+      id: "CUST-003",
+      name: "Sarah Williams",
+      email: "sarah@example.com",
+      phone: "+1 555-0102",
+    },
+    serviceId: "SRV-03",
+    service: {
+      id: "SRV-03",
+      name: "Balayage Color",
+      duration: 180,
+      price: 250,
+    },
+    date: "2026-07-02",
+    time: "14:00",
+    price: 250,
+    paymentStatus: "Paid",
+    bookingStatus: "Completed",
+    paymentMethod: "Online",
+    transactionId: "TXN-789013",
+    createdAt: "2026-06-20T11:20:00Z",
+  },
+  {
+    id: "BKG-1004",
+    customerId: "CUST-004",
+    customer: {
+      id: "CUST-004",
+      name: "David Miller",
+      email: "david@example.com",
+      phone: "+1 555-0103",
+    },
+    serviceId: "SRV-01",
+    service: {
+      id: "SRV-01",
+      name: "Signature Haircut",
+      duration: 60,
+      price: 85,
+    },
+    date: "2026-07-03",
+    time: "09:00",
+    price: 85,
+    paymentStatus: "Refunded",
+    bookingStatus: "Cancelled",
+    paymentMethod: "Credit Card",
+    transactionId: "TXN-789014",
+    createdAt: "2026-06-28T16:45:00Z",
+  },
+  {
+    id: "BKG-1005",
+    customerId: "CUST-005",
+    customer: {
+      id: "CUST-005",
+      name: "Olivia Davis",
+      email: "olivia@example.com",
+      phone: "+1 555-0104",
+    },
+    serviceId: "SRV-04",
+    service: {
+      id: "SRV-04",
+      name: "Keratin Treatment",
+      duration: 120,
+      price: 180,
+    },
+    date: "2026-07-04",
+    time: "13:00",
+    price: 180,
+    paymentStatus: "Failed",
+    bookingStatus: "Pending",
+    paymentMethod: "Online",
+    createdAt: "2026-07-01T20:10:00Z",
+  }
+];
+
+export const SERVICE_OPTIONS = [
+  "All Services",
+  "Signature Haircut",
+  "Beard Trim & Shape",
+  "Balayage Color",
+  "Keratin Treatment",
+];
+
+export const PAYMENT_STATUS_OPTIONS = [
+  "Payment Statuses",
+  "Paid",
+  "Pending",
+  "Failed",
+  "Refunded",
+];
+
+export const BOOKING_STATUS_OPTIONS = [
+  "Booking Statuses",
+  "Pending",
+  "Confirmed",
+  "Completed",
+  "Cancelled",
+  "No Show",
+];
