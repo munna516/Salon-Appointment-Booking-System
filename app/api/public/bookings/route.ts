@@ -70,7 +70,7 @@ export async function POST(req: Request) {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(price * 100), // Convert to cents
       currency: "usd",
-      payment_method_types: ['card', 'cashapp'], // This disables 'link' explicitly
+      automatic_payment_methods: { enabled: true },
       metadata: {
         bookingId: newBooking.id,
         contactId: contact.id,
