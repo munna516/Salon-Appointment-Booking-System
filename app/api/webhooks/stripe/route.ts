@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { BookingStatus, PaymentStatus } from "@prisma/client";
+import { BookingStatus, PaymentStatus, PaymentMethod } from "@prisma/client";
 import { sendBookingConfirmationEmail } from "@/lib/email-service";
 import Stripe from "stripe";
 
