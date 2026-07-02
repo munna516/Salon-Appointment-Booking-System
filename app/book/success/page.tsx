@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Loader2, ArrowRight } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 
-export default function SuccessPage() {
+function SuccessContent() {
   const searchParams = useSearchParams();
   const payment_intent = searchParams.get("payment_intent");
   const payment_intent_client_secret = searchParams.get("payment_intent_client_secret");
@@ -28,10 +28,7 @@ export default function SuccessPage() {
   }, [redirect_status]);
 
   return (
-    <div className="flex min-h-screen flex-col bg-zinc-50 dark:bg-zinc-950">
-      <Navbar />
-      <main className="flex-1 container mx-auto px-4 py-20 flex flex-col items-center justify-center">
-        
+    <>
         {status === "loading" && (
           <div className="flex flex-col items-center gap-4 text-zinc-500">
             <Loader2 className="w-12 h-12 animate-spin text-zinc-900 dark:text-zinc-50" />
@@ -80,7 +77,23 @@ export default function SuccessPage() {
              </Button>
           </motion.div>
         )}
+    </>
+  );
+}
 
+export default function SuccessPage() {
+  return (
+    <div className="flex min-h-screen flex-col bg-zinc-50 dark:bg-zinc-950">
+      <Navbar />
+      <main className="flex-1 container mx-auto px-4 py-20 flex flex-col items-center justify-center">
+        <Suspense fallback={
+          <div className="flex flex-col items-center gap-4 text-zinc-500">
+            <Loader2 className="w-12 h-12 animate-spin text-zinc-900 dark:text-zinc-50" />
+            <p>Loading...</p>
+          </div>
+        }>
+          <SuccessContent />
+        </Suspense>
       </main>
     </div>
   );

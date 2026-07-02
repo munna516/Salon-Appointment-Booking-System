@@ -4,7 +4,7 @@ import { BookingStatus, PaymentStatus, PaymentMethod } from "@prisma/client";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-12-18.acacia", // Use latest API version or your preferred one
+  apiVersion: "2026-06-24.dahlia", // Use latest API version or your preferred one
 });
 
 export async function POST(req: Request) {
