@@ -38,7 +38,7 @@ export async function POST(req: Request) {
         if (bookingId) {
           // Extract specific payment method details
           let paymentMethodType = "Unknown";
-          let methodEnum = PaymentMethod.CARD;
+          let methodEnum: PaymentMethod = PaymentMethod.CARD;
 
           try {
             if (paymentIntent.latest_charge) {
