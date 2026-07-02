@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireAuth } from "@/lib/api-auth";
 
+export const dynamic = 'force-dynamic';
+
 const toTitleCase = (str: string) => {
   return str.split('_').map(w => w.charAt(0) + w.slice(1).toLowerCase()).join(' ');
 };
