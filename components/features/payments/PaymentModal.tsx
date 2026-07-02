@@ -80,7 +80,7 @@ export function PaymentModal({ payment, isOpen, onOpenChange }: PaymentModalProp
               </div>
               <div className="flex flex-col gap-0.5">
                 <span className="text-[10px] text-zinc-500">Payment Method</span>
-                <div><PaymentMethodBadge method={payment.method} /></div>
+                <div><PaymentMethodBadge method={payment.method} details={payment.paymentDetails} /></div>
               </div>
               <div className="flex flex-col gap-0.5">
                 <span className="text-[10px] text-zinc-500">Stripe Intent ID</span>

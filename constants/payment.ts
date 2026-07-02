@@ -51,6 +51,7 @@ const generateMockPayments = (): Payment[] => {
       currency: "USD",
       status,
       method,
+      paymentDetails: null,
       transactionId: status === "PAID" || status === "REFUNDED" ? `txn_${Math.random().toString(36).substr(2, 12)}` : null,
       stripePaymentIntentId: status === "PAID" || status === "REFUNDED" ? `pi_${Math.random().toString(36).substr(2, 12)}` : null,
       

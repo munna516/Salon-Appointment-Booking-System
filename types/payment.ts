@@ -23,6 +23,7 @@ export interface Payment {
   status: PaymentStatus;
   method: PaymentMethod;
   transactionId: string | null;
+  paymentDetails: string | null;
   stripePaymentIntentId: string | null;
   
   bookingId: string;

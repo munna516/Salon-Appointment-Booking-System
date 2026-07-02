@@ -36,12 +36,33 @@ export async function POST(req: Request) {
         const bookingId = paymentIntent.metadata.bookingId;
 
         if (bookingId) {
+          // Extract specific payment method details
+          let paymentMethodType = "Unknown";
+          try {
+            if (paymentIntent.latest_charge) {
+              const expandedIntent = await stripe.paymentIntents.retrieve(paymentIntent.id, {
+                expand: ['latest_charge.payment_method_details']
+              });
+              const details = (expandedIntent.latest_charge as Stripe.Charge)?.payment_method_details;
+              if (details) {
+                if (details.type === 'card') {
+                  paymentMethodType = details.card?.wallet?.type || 'card';
+                } else {
+                  paymentMethodType = details.type;
+                }
+              }
+            }
+          } catch (error) {
+            console.error("Failed to fetch payment method details", error);
+          }
+
           // Update Payment status to PAID
           const payment = await prisma.payment.update({
             where: { stripePaymentIntentId: paymentIntent.id },
             data: { 
               status: PaymentStatus.PAID,
-              transactionId: paymentIntent.id 
+              transactionId: paymentIntent.id,
+              paymentDetails: paymentMethodType
             },
             include: {
               booking: {

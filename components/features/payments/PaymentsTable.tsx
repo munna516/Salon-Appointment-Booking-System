@@ -95,7 +95,7 @@ export function PaymentsTable({ data, onView }: PaymentsTableProps) {
       {
         accessorKey: "method",
         header: "Method",
-        cell: ({ row }) => <PaymentMethodBadge method={row.original.method} />,
+        cell: ({ row }) => <PaymentMethodBadge method={row.original.method} details={row.original.paymentDetails} />,
       },
       {
         accessorKey: "status",
@@ -231,7 +231,7 @@ export function PaymentsTable({ data, onView }: PaymentsTableProps) {
               </div>
 
               <div className="flex items-center justify-between pt-3 border-t border-zinc-100 dark:border-zinc-800">
-                <PaymentMethodBadge method={row.original.method} />
+                <PaymentMethodBadge method={row.original.method} details={row.original.paymentDetails} />
                 <Button
                   variant="outline"
                   size="sm"

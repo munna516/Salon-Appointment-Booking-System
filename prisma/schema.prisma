@@ -107,6 +107,7 @@ model Payment {
   currency              String        @default("USD")
   status                PaymentStatus @default(PENDING)
   method                PaymentMethod
+  paymentDetails        String?
   transactionId         String?       @unique
   stripePaymentIntentId String?       @unique
   

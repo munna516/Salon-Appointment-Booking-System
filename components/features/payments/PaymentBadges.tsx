@@ -30,9 +30,10 @@ export function PaymentStatusBadge({ status }: PaymentStatusBadgeProps) {
 
 interface PaymentMethodBadgeProps {
   method: PaymentMethod;
+  details?: string | null;
 }
 
-export function PaymentMethodBadge({ method }: PaymentMethodBadgeProps) {
+export function PaymentMethodBadge({ method, details }: PaymentMethodBadgeProps) {
   const iconMap = {
     CREDIT_CARD: <CreditCard className="h-3.5 w-3.5 mr-1" />,
     ONLINE: <Smartphone className="h-3.5 w-3.5 mr-1" />,
@@ -47,10 +48,18 @@ export function PaymentMethodBadge({ method }: PaymentMethodBadgeProps) {
     OTHER: "Other",
   };
 
+  const formatDetails = (detailString?: string | null) => {
+    if (!detailString || detailString === "Unknown") return null;
+    return detailString.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  };
+
+  const formattedDetails = formatDetails(details);
+  const displayLabel = formattedDetails ? formattedDetails : labels[method];
+
   return (
     <div className="flex items-center text-zinc-700 dark:text-zinc-300 font-medium text-sm">
       {iconMap[method]}
-      {labels[method]}
+      {displayLabel}
     </div>
   );
 }
